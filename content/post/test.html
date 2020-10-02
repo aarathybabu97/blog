@@ -1,0 +1,409 @@
+---
+title: Himalayan Expeditions
+author: Aarathy Babu
+date: '2020-10-02'
+slug: test
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-09-17T18:53:09+10:00'
+featured: yes
+image: 
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<p>The Himalayas, however intimidating it may seem ,has always had visitors.It has always been an abode for adventure spirits and thrill seekers.In 1923,when asked why he wanted to scale the Mount Everest,the highest peak not only among the Himalayan ranges but also the highest peak in the world, George Mallory, the mountaineer who went on to participate in the first attempt to climb the same replied, “Because it is there”.These three words became one of the three famous words in mountaineering and continues to inspire mountaineers all around the world. This blog post aims to explore the data I came across in the dataset of weekly <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md">Tidy Tuesday</a> data project. The dataset is originally sourced from <a href="https://www.himalayandatabase.com/">The Himalayan Database</a> based on the expedition archives by journalist Elizabeth Hawley. The Tidy Tuesday datasets used in the analysis contains data on the peaks of the Himalaya,the expeditions led to those peaks as well as the members who participated in those expeditions.</p>
+<div class="figure">
+<img src="/post/test_files/traffic.jpg" alt="" />
+<p class="caption">A long line of climbers waiting to summit Mount Everest on May 22.Source : The New York Times. Credit…<span class="citation">@nimsdai/Project</span> Possible, via Agence France-Presse — Getty Images</p>
+</div>
+<p>Before the analysis,I wanted an at-a-glance image of the data in the datasets therefore I used the <em>visdat</em> package to see all the variables,it’s data types,the number of observations and also the missing values. Let us look at each dataset, starting with the dataset on the peaks as shown below in figure <a href="#fig:visdatpeaks">1</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:visdatpeaks"></span>
+<img src="/post/test_files/figure-html/visdatpeaks-1.png" alt="Data on Peaks" width="672" />
+<p class="caption">
+Figure 1: Data on Peaks
+</p>
+</div>
+<p>Digging deeper to see the observations, it was found that the year of first ascent for one of the peaks,<br />
+Sharphu II is given as 201 which is unlikely,therefore by doing a little bit of googling it was found that the year of first ascent is 2018 and the observation was correctly accordingly for the analysis.</p>
+<table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+peak_id
+</th>
+<th style="text-align:left;">
+peak_name
+</th>
+<th style="text-align:left;">
+peak_alternative_name
+</th>
+<th style="text-align:right;">
+height_metres
+</th>
+<th style="text-align:left;">
+climbing_status
+</th>
+<th style="text-align:right;">
+first_ascent_year
+</th>
+<th style="text-align:left;">
+first_ascent_country
+</th>
+<th style="text-align:left;">
+first_ascent_expedition_id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPH2
+</td>
+<td style="text-align:left;">
+Sharphu II
+</td>
+<td style="text-align:left;">
+Tanga II
+</td>
+<td style="text-align:right;">
+6328
+</td>
+<td style="text-align:left;">
+Climbed
+</td>
+<td style="text-align:right;">
+201
+</td>
+<td style="text-align:left;">
+USA
+</td>
+<td style="text-align:left;">
+SPH218301
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LNPO
+</td>
+<td style="text-align:left;">
+Langpo
+</td>
+<td style="text-align:left;">
+Longpo
+</td>
+<td style="text-align:right;">
+6965
+</td>
+<td style="text-align:left;">
+Climbed
+</td>
+<td style="text-align:right;">
+1909
+</td>
+<td style="text-align:left;">
+UK
+</td>
+<td style="text-align:left;">
+LNPO09301
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JONG
+</td>
+<td style="text-align:left;">
+Jongsang
+</td>
+<td style="text-align:left;">
+Jonsong, Jhinsang
+</td>
+<td style="text-align:right;">
+7462
+</td>
+<td style="text-align:left;">
+Climbed
+</td>
+<td style="text-align:right;">
+1930
+</td>
+<td style="text-align:left;">
+Germany, Austria
+</td>
+<td style="text-align:left;">
+JONG30101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEPA
+</td>
+<td style="text-align:left;">
+Nepal Peak
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+7177
+</td>
+<td style="text-align:left;">
+Climbed
+</td>
+<td style="text-align:right;">
+1930
+</td>
+<td style="text-align:left;">
+Austria
+</td>
+<td style="text-align:left;">
+NEPA30101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RAMT
+</td>
+<td style="text-align:left;">
+Ramtang
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+6601
+</td>
+<td style="text-align:left;">
+Climbed
+</td>
+<td style="text-align:right;">
+1930
+</td>
+<td style="text-align:left;">
+Austria, UK
+</td>
+<td style="text-align:left;">
+RAMT30101
+</td>
+</tr>
+</tbody>
+</table>
+Moving on to the expeditions dataset shown in figure <a href="#fig:visdatexpe">2</a>,I did a little bit of cleaning on the variable <em>termination_reason</em> to remove the brackets as I did not want to classify reasons for termination of expedition any further.
+<div class="figure" style="text-align: center"><span id="fig:visdatexpe"></span>
+<img src="/post/test_files/figure-html/visdatexpe-1.png" alt="Data on Expeditions" width="672" />
+<p class="caption">
+Figure 2: Data on Expeditions
+</p>
+</div>
+<p>Similarly the glimpse of data on the members participated is as shown in figure <a href="#fig:visdatmem">3</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:visdatmem"></span>
+<img src="/post/test_files/figure-html/visdatmem-1.png" alt="Data on Expedition Members" width="672" />
+<p class="caption">
+Figure 3: Data on Expedition Members
+</p>
+</div>
+<div id="himalayan-expeditions-over-the-years" class="section level2">
+<h2>Himalayan Expeditions over the years</h2>
+<p>Now that we got a glimpse of the datasets used,let us look into how expeditions to the Himalayan ranges fared over the years in figure <a href="#fig:gif">4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:gif"></span>
+<img src="/post/test_files/figure-html/gif-1.gif" alt="The figure shows himalayan Expeditions over the years.It can be seen that there is fall in number of expeditions after 2010."  />
+<p class="caption">
+Figure 4: The figure shows himalayan Expeditions over the years.It can be seen that there is fall in number of expeditions after 2010.
+</p>
+</div>
+<p>In the above plot that,we can see that there is a decline in the number of expeditions after 2010 , so I did a little bit of detective work and found out an <a href="https://www.bbc.com/news/world-asia-48464030">article</a> that says ,According to Nepal’s Department for Tourism since 2010 the total number of registered Sherpas has decreased by a fifth. This could be the reason why there is a decline after 2010.</p>
+</div>
+<div id="how-high-are-the-mountains-of-the-himalaya" class="section level2">
+<h2>How high are the mountains of the Himalaya ?</h2>
+<p>Let’s now see how high are the peaks of the mighty Himalayas are using the dataset on peaks.The mountains in Himalayan ranges has an average height of 6656.64 metres.To dig deeper into the heights of these peaks that have been climbed and yet to be climbed, I plotted figure <a href="#fig:height">5</a> below.</p>
+<div class="figure" style="text-align: center"><span id="fig:height"></span>
+<img src="/post/test_files/figure-html/height-1.png" alt="The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high." width="672" />
+<p class="caption">
+Figure 5: The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high.
+</p>
+</div>
+<p>I always had the idea that higher the peak more difficult it is to be climbed therefore I found it quite interesting that peaks that are much lower in height are the ones in fact that are yet to be climbed.Being a curious creature, I wanted to know why it was so and I did some googling as usual(I have reached a point in my life where I can confidently say that Google is my best friend) and it seems that <a href="https://www.bbc.com/future/article/20140703-the-last-mountains-to-climb">BBC</a> had the answer to it.The reason why hundreds of peaks are yet to be conquered could be because of logistics problems or even political obstructions.</p>
+</div>
+<div id="what-are-the-main-reasons-for-termination-of-expeditions" class="section level2">
+<h2>What are the main reasons for termination of expeditions?</h2>
+<p>The expeditions to Himalayan ranges are filled with adventure,hope,thrill and also a fair share of danger.Let’s look into what the main reasons for the termination of expeditions using the dataset on expeditions, in figure <a href="#reason"><strong>??</strong></a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:reason"></span>
+<img src="/post/test_files/figure-html/reason-1.png" alt="The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful." width="864" />
+<p class="caption">
+Figure 6: The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful.
+</p>
+</div>
+<p>The above figure shows that an expeditions being successful is one of the top reasons of it being terminated but there is a considerable amount of unsuccessful expeditions due to bad weather conditions like storms, high wind and bad conditions like deep snow, avalanche, falling ice, or rock among other reasons shown.</p>
+</div>
+<div id="what-about-women-mountaineers" class="section level2">
+<h2>What about women mountaineers?</h2>
+<p>While exploring the dataset on the expedition members, I wanted to see how many of them were women and it was found that there is an astonshing difference between the number of men and women participating in the expedition. Only 9.21 % of the total expeditioners in record were women where as the rest 90.79 % were men. Although it has been a slow journey for the women,we can see in figure <a href="#fig:women">7</a> that the number of women joining expeditions is increasing.</p>
+<div class="figure" style="text-align: center"><span id="fig:women"></span>
+<img src="/post/test_files/figure-html/women-1.png" alt="The figure shows the gender distribution of the expeditioners over the years.The number of women joining expeditions has been on the rise." width="672" />
+<p class="caption">
+Figure 7: The figure shows the gender distribution of the expeditioners over the years.The number of women joining expeditions has been on the rise.
+</p>
+</div>
+</div>
+<div id="how-old-are-these-expeditioners" class="section level2">
+<h2>How old are these expeditioners?</h2>
+<p>When I was doing my bachelor’s,I happened to hear about a <a href="https://www.avenuemail.in/world/5-year-old-indian-boy-harshit-saumitra-creates-world-record/62677/">5-year-old</a> being the youngest ever to have reached the Mount Everest base camp and it completely blew my mind then and even now. Therefore,I really wanted to explore the data to see the age group the expeditioners fall into when they had climbed the Himalayan peaks and inorder to do so, the dataset on members were considered.</p>
+<div class="figure" style="text-align: center"><span id="fig:age"></span>
+<img src="/post/test_files/figure-html/age-1.png" alt="The figure shows the age distribution of the expeditioners and it can be observed that majority of them are around 30 or above 30 years old." width="672" />
+<p class="caption">
+Figure 8: The figure shows the age distribution of the expeditioners and it can be observed that majority of them are around 30 or above 30 years old.
+</p>
+</div>
+<p>The figure above <a href="#fig:age">8</a> shows that majority of the expeditioners are above 30 years of age and it can also be seen that there is a presence of really young population of below 20 years of age.</p>
+<p>While I was extensively googling for this analysis, I came across a quite interesting quote by none other than Edmund Hillary,one of the two-man team who first set foot on the peak of Mt.Everest. He once said,“I think Himalayan climbers tend to mature fairly late. I think most of the successful Himalayan climbers have ranged from 28 to just over 40, really.”. This really intrigued and prompted me to check if the data says the same.</p>
+<div class="figure">
+<img src="/post/test_files/hillary.jpg" style="width:50.0%;height:50.0%" alt="" />
+<p class="caption">Image Source:quotefancy.com</p>
+</div>
+<p>To check if the data holds true by what Edmund Hillary said,I took the data on the members who were part of successful expeditions and plotted their age distribution as seen below in figure <a href="#fig:edmund">9</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:edmund"></span>
+<img src="/post/test_files/figure-html/edmund-1.png" alt="The figure shows the age distribuition of successfull expeditioners.It can be observed that majority of the expeditioners are of the age group early 20s - late 40s." width="672" />
+<p class="caption">
+Figure 9: The figure shows the age distribuition of successfull expeditioners.It can be observed that majority of the expeditioners are of the age group early 20s - late 40s.
+</p>
+</div>
+<p>It is very interesting to see that the data does support what Edmund Hillary said years back!</p>
+</div>
+<div id="the-role-of-sherpa" class="section level2">
+<h2>The Role of Sherpa</h2>
+<p>The Sherpa are an ethnic group who live in the high mountains of the Himalayas in Nepal. A majority of them work as guides who helps mountaineers to climb the Himalaya.</p>
+<p>Fun fact : The Sherpa community weren’t always involved in mountaineering.The were hired as porters by the British, who controlled the Indian sub-continent and planned mountain climbing expeditions.Since then,due to their hard work and agility they have been climbing the mountain range that has few of the highest peaks on Earth.</p>
+<p>As we analyze the data,it is very important to consider the role of the Sherpa guides as they are doing a job with risks and no glory. Let us first look at gender and age distribution among the hired sherpa guides below in <a href="#tab:female"><strong>??</strong></a>.In order to find the hired members who are from Sherpa,I took the variable <em>hired</em> into consideration and also filtered the citizenship of the individual to India,Nepal and Nepal/India.</p>
+<table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Age
+</th>
+<th style="text-align:right;">
+Female
+</th>
+<th style="text-align:right;">
+Male
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+10-20
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+367
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20-30
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+5267
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30-40
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5472
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40-50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2086
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50-60
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+233
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60-70
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+</tbody>
+</table>
+<p>From the table above,we can see that not many women in Sherpa community work as hired guides and that among women majority of them are of the age group 20-30 where as majority of them fall between 20-40 years of age.</p>
+<table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Expeditioner
+</th>
+<th style="text-align:right;">
+Deaths
+</th>
+<th style="text-align:right;">
+Proportion
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Non Sherpa
+</td>
+<td style="text-align:right;">
+750
+</td>
+<td style="text-align:right;">
+70.68803
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sherpa
+</td>
+<td style="text-align:right;">
+311
+</td>
+<td style="text-align:right;">
+29.31197
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/post/test_files/figure-html/cause-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>

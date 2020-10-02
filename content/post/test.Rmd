@@ -1,0 +1,457 @@
+---
+title: Himalayan Expeditions
+author: Aarathy Babu
+date: '2020-10-02'
+slug: test
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-09-17T18:53:09+10:00'
+featured: yes
+image: 
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+The Himalayas, however intimidating it may seem ,has always had visitors.It has always been an abode for adventure spirits and thrill seekers.In 1923,when asked why he wanted to scale the Mount Everest,the highest peak not only among the Himalayan ranges but also the highest peak in the world, George Mallory, the mountaineer who went on to participate in the first attempt to climb the same replied, "Because it is there".These three words became one of the three famous words in mountaineering and continues to inspire mountaineers all around the world. This blog post aims to explore the data I came across in the dataset of weekly [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md) data project. The dataset is originally sourced from [The Himalayan Database](https://www.himalayandatabase.com/) based on the expedition archives by journalist Elizabeth Hawley. The Tidy Tuesday datasets used in the analysis contains data on the peaks of the Himalaya,the expeditions led to those peaks as well as the members who participated in those expeditions. 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,message=FALSE,warning=FALSE,fig.align = 'center')
+```
+
+
+![A long line of climbers waiting to summit Mount Everest on May 22.Source : The New York Times. Credit...@nimsdai/Project Possible, via Agence France-Presse — Getty Images](/post/test_files/traffic.jpg)
+
+
+```{r library}
+library(tidyverse)
+library(ggplot2)
+library(visdat)
+library(tvthemes)
+library(extrafont)
+
+
+library(kableExtra)
+loadfonts()
+
+```
+
+
+```{r data}
+members <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-22/members.csv')
+expeditions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-22/expeditions.csv')
+peaks <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-22/peaks.csv')
+
+```
+
+Before the analysis,I wanted an at-a-glance image of the data in the datasets therefore I used the *visdat* package to see all the variables,it's data types,the number of observations and also the missing values. Let us look at each dataset, starting with the dataset on the peaks as shown below in figure \@ref(fig:visdatpeaks).
+
+
+```{r visdatpeaks,fig.cap="Data on Peaks"}
+
+ visdat::vis_dat(peaks) 
+
+```
+
+Digging deeper to see the observations, it was found that the year of first ascent for one of the peaks, 	
+Sharphu II is given as 201 which is unlikely,therefore by doing a little bit of googling it was found that the year of first ascent is 2018 and the observation was correctly accordingly for the analysis. 
+
+```{r tablepeak,fig.cap="Year of first ascent of an observation is given as 201 which is unlikely."}
+peaks %>%
+  arrange(first_ascent_year)%>%
+  head(5) %>% kable()%>%
+  kable_styling(bootstrap_options = c("striped", "hover",full_width = F, "responsive", position = "float_right"))
+  
+
+```
+
+Moving on to the expeditions dataset shown in figure \@ref(fig:visdatexpe),I did a little bit of cleaning on the variable *termination_reason* to remove the brackets as I did not want to classify reasons for termination of expedition any further.
+```{r visdatexpe,fig.cap="Data on Expeditions"}
+ visdat::vis_dat(expeditions)
+
+
+```
+
+Similarly the glimpse of data on the members participated is as shown in figure \@ref(fig:visdatmem).
+
+```{r visdatmem,fig.cap="Data on Expedition Members"}
+visdat::vis_dat(members,warn_large_data = F)
+
+
+```
+
+
+
+```{r}
+peakst <- peaks %>%
+
+  mutate(first_ascent_year=case_when(str_detect(first_ascent_year,"201")~"2018",
+         TRUE ~ as.character(first_ascent_year))) %>%
+    mutate(decade =case_when(between(first_ascent_year,1920,1930) == TRUE ~"1920s",
+                             between(first_ascent_year,1930,1940) == TRUE ~"1930s",
+                             between(first_ascent_year,1940,1950) == TRUE ~"1940s",
+                             between(first_ascent_year,1950,1960) == TRUE ~"1950s",
+                             between(first_ascent_year,1960,1970) == TRUE ~"1960s",
+                             between(first_ascent_year,1970,1980) == TRUE ~"1970s",
+                             between(first_ascent_year,1980,1990) == TRUE ~"1980s",
+                             between(first_ascent_year,1990,2000) == TRUE ~"1990s",
+                             between(first_ascent_year,2000,2010) == TRUE ~"2000s",
+                             between(first_ascent_year,2010,2020) == TRUE ~"2010s"))
+
+peakst$first_ascent_year <- as.double(peakst$first_ascent_year)
+```
+
+## Himalayan Expeditions over the years
+
+Now that we got a glimpse of the datasets used,let us look into how expeditions to the Himalayan ranges fared over the years in figure \@ref(fig:gif).
+
+```{r wrangle}
+test <- expeditions
+test$termination_reason <-   gsub("\\s*\\([^\\)]+\\)","",as.character(test$termination_reason))
+```
+
+```{r gif,fig.width=7,fig.cap="The figure shows himalayan Expeditions over the years.It can be seen that there is fall in number of expeditions after 2010."}
+test <- test %>%
+
+    mutate(decade =case_when(between(year,1920,1930) == TRUE ~"1920s",
+                             between(year,1930,1940) == TRUE ~"1930s",
+                             between(year,1940,1950) == TRUE ~"1940s",
+                             between(year,1950,1960) == TRUE ~"1950s",
+                             between(year,1960,1970) == TRUE ~"1960s",
+                             between(year,1970,1980) == TRUE ~"1970s",
+                             between(year,1980,1990) == TRUE ~"1980s",
+                             between(year,1990,2000) == TRUE ~"1990s",
+                             between(year,2000,2010) == TRUE ~"2000s",
+                             between(year,2010,2020) == TRUE ~"2010s"))
+
+test$year <- as.double(test$year)
+plotdata <- test %>%
+  group_by(year)%>%
+  count() %>%
+  filter(!is.na(n))
+library(ggimage)
+plotdata <- plotdata %>%
+  mutate(image="hike.png") %>%
+
+
+    mutate(decade =case_when(between(year,1900,1910) == TRUE ~"1900s",
+      between(year,1910,1920) == TRUE ~"1910s",
+      between(year,1920,1930) == TRUE ~"1920s",
+                             between(year,1930,1940) == TRUE ~"1930s",
+                             between(year,1940,1950) == TRUE ~"1940s",
+                             between(year,1950,1960) == TRUE ~"1950s",
+                             between(year,1960,1970) == TRUE ~"1960s",
+                             between(year,1970,1980) == TRUE ~"1970s",
+                             between(year,1980,1990) == TRUE ~"1980s",
+                             between(year,1990,2000) == TRUE ~"1990s",
+                             between(year,2000,2010) == TRUE ~"2000s",
+                             between(year,2010,2020) == TRUE ~"2010s"))
+plot <- plotdata%>%
+  ggplot()+
+  geom_line(aes(y=n,x=year)) +
+  geom_area(aes(y=n,x=year),fill = "lightblue",alpha=0.5)+
+  scale_x_continuous(breaks = seq(1900,2020,by=10))+
+   geom_image(aes(image = image,x=year,y=n), size = 0.05)+
+
+  theme(
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1),
+ panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+ panel.grid.major.y = element_blank())+
+  theme(legend.position = "none") +
+  ggtitle("Himalayan Expeditions over the years")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  ylab("\nNumber of Expeditions") +
+  
+xlab("Year\n")+
+  theme(text = element_text(family = "Bahnschrift"))
+
+library(gganimate)
+
+plot <- plot +transition_reveal(year)+
+    ease_aes('linear', interval = 0.0005) 
+animate(plot, nframes= 150, fps = 66)
+
+#anim_save("himalayan.gif",animation = last_animation())
+  
+```
+
+In the above plot that,we can see that there is a decline in the number of expeditions after 2010 , so I did a little bit of detective work and found out an [article](https://www.bbc.com/news/world-asia-48464030) that says ,According to Nepal's Department for Tourism since 2010 the total number of registered Sherpas has decreased by a fifth. This could be the reason why there is a decline after 2010.
+
+
+## How high are the mountains of the Himalaya ?
+
+Let's now see how high are the peaks of the mighty Himalayas are using the dataset on peaks.The mountains in Himalayan ranges has an average height of `r round(mean(peakst$height_metres),2)` metres.To dig deeper into the heights of these peaks that have been climbed and yet to be climbed, I plotted figure \@ref(fig:height) below.
+
+```{r height,fig.cap="The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high."}
+cols <- c("#0f4c5c","#e36414")
+
+peakst %>%
+  ggplot()+
+  geom_histogram(aes(x=height_metres,fill=climbing_status),alpha=0.9,bins = 25)+
+  scale_fill_manual(values = cols)+
+  theme(legend.position = "top",
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1),
+legend.title = element_blank())+
+  ggtitle("Height of Himalayalan Peaks")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  xlab("\nHeight in metres")+
+  ylab("Number of peaks \n") +
+  
+  theme(text = element_text(family = "Bahnschrift"))
+  
+#mean(peakst$height_metres)
+
+```
+
+I always had the idea that higher the peak more difficult it is to be climbed therefore I found it quite interesting that peaks that are much lower in height are the ones in fact that are yet to be climbed.Being a curious creature, I wanted to know why it was so and I did some googling as usual(I have reached a point in my life where I can confidently say that Google is my best friend) and it seems that [BBC](https://www.bbc.com/future/article/20140703-the-last-mountains-to-climb) had the answer to it.The reason why hundreds of peaks are yet to be conquered could be because of logistics problems or even political obstructions. 
+
+## What are the main reasons for termination of expeditions? 
+
+The expeditions to Himalayan ranges are filled with adventure,hope,thrill and also a fair share of danger.Let's look into what the main reasons for the termination of expeditions using the dataset on expeditions, in figure \@ref(reason).
+
+```{r reason,fig.cap="The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful." ,fig.width=9,fig.height=5}
+cols2 <- c("#f94144", "#386641", "#708d81","#f9844a","#f9c74f","#90be6d","#43aa8b","#4d908e","#577590","#277da1","#0f4c5c","#e36414","#fb8b24","#9a031e","#5f0f40")
+test %>%
+group_by(termination_reason)%>%
+  count() %>%
+ 
+   mutate(termination_reason=case_when(str_detect(termination_reason,"Route technically too difficult, lack of experience, strength, or motivation")~"Difficult route or lack of experience",
+                                       str_detect(termination_reason,"Success")~"Reached Peak",
+                                       
+         TRUE ~ as.character(termination_reason))) %>%
+ 
+ 
+  
+  ggplot()+
+  geom_col(aes(y=reorder(termination_reason,n),x=n,fill=termination_reason))+
+  scale_fill_manual(values = cols2) +
+  theme(
+        axis.title.y = element_blank(),
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1))+
+  theme(legend.position = "none") +
+  ggtitle("Reasons for Termination of Expedition")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  xlab("\nExpedition Count") +
+  xlim(0,6000)+
+  theme(text = element_text(family = "Bahnschrift"))
+  
+```
+
+The above figure shows that an expeditions being successful is one of the top reasons of it being terminated but there is a considerable amount of unsuccessful expeditions due to bad weather conditions like storms, high wind and bad conditions like deep snow, avalanche, falling ice, or rock among other reasons shown. 
+
+## What about women mountaineers?
+
+
+
+```{r mt}
+
+cols <- c("#0f4c5c","#e36414")
+prop <- members %>%
+  filter(!is.na(sex))%>%
+  group_by(year,sex)%>%
+  count()
+
+mountaingen <-  members%>%
+  group_by(sex)%>%
+  count() %>%
+  filter(!is.na(sex)) %>%
+  ungroup()%>%
+  mutate(proportion=(n/sum(n))*100)
+
+
+mountaingen[is.na(mountaingen)] <- 0
+```
+
+While exploring the dataset on the expedition members, I wanted to see how many of them were women and it was found that there is an astonshing difference between the number of men and women participating in the expedition. Only `r round((mountaingen$proportion[mountaingen$sex == "F"]),2)` % of the total expeditioners in record were women where as the rest `r round((mountaingen$proportion[mountaingen$sex == "M"]),2)` % were men. Although it has been a slow journey for the women,we can see in figure \@ref(fig:women) that the number of women joining expeditions is increasing.
+
+```{r women,fig.cap="The figure shows the gender distribution of the expeditioners over the years.The number of women joining expeditions has been on the rise."}
+prop %>%
+  ggplot()+
+geom_col(aes(x=year,y=n,fill=sex),position = "dodge")+
+   scale_fill_manual(values = cols)+
+  scale_x_continuous(breaks = seq(1900,2020,by=10))+
+  theme(
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1))+
+  ggtitle("Gender distribuition of Expeditioners")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  ylab("\nNumber of Expeditioners") +
+  
+xlab("Year\n")+
+  theme(text = element_text(family = "Bahnschrift"))
+  
+```
+
+## How old are these expeditioners?
+
+When I was doing my bachelor's,I happened to hear about a [5-year-old](https://www.avenuemail.in/world/5-year-old-indian-boy-harshit-saumitra-creates-world-record/62677/) being the youngest ever to have reached the Mount Everest base camp and it completely blew my mind then and even now. Therefore,I really wanted to explore the data to see the age group the expeditioners fall into when they had climbed the Himalayan peaks and inorder to do so, the dataset on members were considered.
+
+```{r age,fig.cap="The figure shows the age distribution of the expeditioners and it can be observed that majority of them are around 30 or above 30 years old."}
+
+
+members %>%
+ # filter(success=="TRUE")%>%
+ # filter(sex=="F")%>%
+  ggplot()+
+  geom_histogram(aes(x=age),bins=40,fill="#e36414",alpha=0.8)+
+  scale_x_continuous(breaks = seq(0,100,by=10))+
+
+  theme(
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1))+
+   scale_fill_manual(values = cols)+
+  ggtitle("Age distribuition of Expeditioners")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  ylab("\nNumber of Expeditioners") +
+  
+xlab("Age\n")+  #![](/post/test_files/hillary.jpg)
+  theme(text = element_text(family = "Bahnschrift"))
+```
+
+The figure above \@ref(fig:age) shows that majority of the expeditioners are above 30 years of age and it can also be seen that there is a presence of really young population of below 20 years of age. 
+
+While I was extensively googling for this analysis, I came across a quite interesting quote by none other than Edmund Hillary,one of the two-man team who first set foot on the peak of Mt.Everest. He once said,"I think Himalayan climbers tend to mature fairly late. I think most of the successful Himalayan climbers have ranged from 28 to just over 40, really.". This really intrigued and prompted me to check if the data says the same. 
+
+![Image Source:quotefancy.com](/post/test_files/hillary.jpg){width=50% height=50%}
+
+
+To check if the data holds true by what Edmund Hillary said,I took the data on the members who were part of successful expeditions and plotted their age distribution as seen below in figure \@ref(fig:edmund). 
+
+```{r edmund,fig.cap="The figure shows the age distribuition of successfull expeditioners.It can be observed that majority of the expeditioners are of the age group early 20s - late 40s."}
+  members %>%
+ filter(success=="TRUE")%>%
+ # filter(sex=="F")%>%
+  ggplot()+
+  geom_histogram(aes(x=age),bins = 15,fill="#0f4c5c",alpha=0.8)+
+  scale_x_continuous(breaks = seq(0,100,by=10))+
+
+  theme(
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1))+
+   scale_fill_manual(values = cols)+
+  ggtitle("Age distribuition of Successful Expeditioners")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  ylab("\nNumber of Expeditioners") +
+  
+xlab("Age\n")+
+  theme(text = element_text(family = "Bahnschrift"))
+
+gender <- members %>%
+ group_by(sex)%>%
+ count() %>%
+  filter(!is.na(sex))%>%
+ungroup() %>%  mutate(sum=sum(n),
+         proportion=(n/sum)*100)
+```
+
+It is very interesting to see that the data does support what Edmund Hillary said years back! 
+
+## The Role of Sherpa
+
+The Sherpa are an ethnic group who live in the high mountains of the Himalayas in Nepal. A majority of them work as guides who helps mountaineers to climb the Himalaya.
+
+Fun fact : The Sherpa community weren't always involved in mountaineering.The were hired as porters by the British, who controlled the Indian sub-continent and planned mountain climbing expeditions.Since then,due to their hard work and agility they have been climbing the mountain range that has few of the highest peaks on Earth.
+
+As we analyze the data,it is very important to consider the role of the Sherpa guides as they are doing a job with risks and no glory. Let us first look at gender and age distribution among the hired sherpa guides below in \@ref(tab:female).In order to find the hired members who are from Sherpa,I took the variable *hired* into consideration and also filtered the citizenship of the individual to India,Nepal and Nepal/India. 
+
+```{r female,fig.cap="The table depicts the Gender and Age distribution of hired Sherpa guides."}
+sherpa<- members %>%
+  filter(!citizenship=="Nepal/India?")%>%
+  filter(!citizenship=="India?") %>%
+  filter(hired=="TRUE")%>%
+  filter(citizenship==("Nepal/India")|citizenship==("India")|citizenship==("Nepal")|citizenship==("India/Nepal")) 
+
+sherpa <- sherpa %>%
+  mutate(age_group=case_when(between(age,0,10) == TRUE ~"0-10",
+                             between(age,10,20) == TRUE ~"10-20",
+                            between(age,20,30) == TRUE ~"20-30",
+                             between(age,30,40) == TRUE ~"30-40",
+                            between(age,40,50) == TRUE ~"40-50",
+                             between(age,50,60) == TRUE ~"50-60",
+                            between(age,60,70) == TRUE ~"60-70",
+                             between(age,70,80) == TRUE ~"70-80",
+                            between(age,80,90) == TRUE ~"80-90",
+                             between(age,90,100) == TRUE ~"90-100"))
+
+female <- sherpa %>%
+  group_by(sex)%>%
+  count() 
+         
+sherpa_gender <- sherpa %>%
+  filter(!is.na(age_group))%>%
+  group_by(age_group,sex)%>%
+  count()
+sherpa_gender <- sherpa_gender%>%
+  pivot_wider(names_from = "sex",values_from="n") 
+
+sherpa_gender[is.na(sherpa_gender)] <- 0
+
+library(kableExtra)
+sherpa_gender %>%
+  rename(Female=F,
+         Male=M,
+         Age=age_group) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover",full_width = F, "responsive",position = "float_right"))
+```
+
+From the table above,we can see that not many women in Sherpa community work as hired guides and that among women majority of them are of the age group 20-30 where as majority of them fall between 20-40 years of age.
+
+
+```{r extab}
+
+nonsherpa <- anti_join(members,sherpa,by="citizenship")
+  
+  mem <- members %>%
+  filter(died=="TRUE") %>%
+    count()
+nsh <- nonsherpa%>%
+  filter(died=="TRUE") %>%
+    count()
+
+sh <- sherpa %>%
+  filter(died=="TRUE") %>%
+    count()
+
+
+deaths <- tibble(
+  Expeditioner = c("Non Sherpa","Sherpa"), 
+  Deaths = c(nsh$n,sh$n), 
+ )
+
+deaths %>%
+  mutate(Proportion=(Deaths/sum(Deaths)*100)) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover","responsive",position="center"))
+```
+
+```{r cause}
+members %>%
+  filter(died=="TRUE") %>%
+
+group_by(death_cause)%>%
+  count()  %>%#acute mountain sickness (AMS)
+ggplot()+
+  geom_col(aes(y=reorder(death_cause,n),x=n,fill=death_cause))+
+  scale_fill_manual(values = cols2) +
+  theme(
+        axis.title.y = element_blank(),
+  panel.background = element_rect(fill = "#f1f2f6",
+color = "black", size = 1))+
+  theme(legend.position = "none") +
+  ggtitle("Causes of Deaths")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  xlab("\nDeaths") +
+  theme(text = element_text(family = "Bahnschrift"))
+  
+```
+
