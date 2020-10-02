@@ -359,11 +359,11 @@ It is very interesting to see that the data does support what Edmund Hillary sai
 
 The Sherpa are an ethnic group who live in the high mountains of the Himalayas in Nepal. A majority of them work as guides who helps mountaineers to climb the Himalaya.
 
-Fun fact : The Sherpa community weren't always involved in mountaineering.The were hired as porters by the British, who controlled the Indian sub-continent and planned mountain climbing expeditions.Since then,due to their hard work and agility they have been climbing the mountain range that has few of the highest peaks on Earth.
+[Fun fact](https://www.thoughtco.com/sherpa-people-definition-1434515#:~:text=The%20Sherpa%20are%20an%20ethnic,working%2C%20peaceful%2C%20and%20brave.) : The Sherpa community weren't always involved in mountaineering.The were hired as porters by the British, who controlled the Indian sub-continent and planned mountain climbing expeditions.Since then,due to their hard work and agility they have been climbing the mountain range that has few of the highest peaks on Earth.
 
 As we analyze the data,it is very important to consider the role of the Sherpa guides as they are doing a job with risks and no glory. Let us first look at gender and age distribution among the hired sherpa guides below in \@ref(tab:female).In order to find the hired members who are from Sherpa,I took the variable *hired* into consideration and also filtered the citizenship of the individual to India,Nepal and Nepal/India. 
 
-```{r female,fig.cap="The table depicts the Gender and Age distribution of hired Sherpa guides."}
+```{r female}
 sherpa<- members %>%
   filter(!citizenship=="Nepal/India?")%>%
   filter(!citizenship=="India?") %>%
@@ -400,12 +400,15 @@ sherpa_gender %>%
   rename(Female=F,
          Male=M,
          Age=age_group) %>%
-  kable() %>%
+  kable(caption ="The table depicts the Gender and Age distribution of hired Sherpa guides.") %>%
   kable_styling(bootstrap_options = c("striped", "hover",full_width = F, "responsive",position = "float_right"))
 ```
 
 From the table above,we can see that not many women in Sherpa community work as hired guides and that among women majority of them are of the age group 20-30 where as majority of them fall between 20-40 years of age.
 
+Let's now move on to the more pressing topic that is,given the dangerous nature of the job,it is seen in \@ref(tab:extab) that around 30% of deaths during the expeditions are of the Sherpa community alone which becomes even more painful when you come to know that according to [npr.org](https://www.npr.org/sections/parallels/2018/04/14/599417489/one-third-of-everest-deaths-are-sherpa-climbers),there have been instances where the Sherpas didn't even receive the certificates their foreign counterparts get to prove they have reached the summit. 
+
+I would like to share here,the [National Geographic's 5 Ways to help the Sherpas of Everest](https://www.nationalgeographic.com/news/2014/4/140424-sherpas-avalanche-help-donations/) that has been shared in the Tidy Tuesday GitHub repo.
 
 ```{r extab}
 
@@ -430,9 +433,14 @@ deaths <- tibble(
 
 deaths %>%
   mutate(Proportion=(Deaths/sum(Deaths)*100)) %>%
-  kable() %>%
+  kable(caption="Around 30% of the deaths during expeditions is of Sherpas.") %>%
   kable_styling(bootstrap_options = c("striped", "hover","responsive",position="center"))
+
 ```
+
+## What are the causes of deaths during expeditions?
+
+It is of no doubt that mountaineering is thrilling as well as dangerous. The figure \@ref(fig:cause) below, shows the causes of deaths of the expeditioners.
 
 ```{r cause}
 members %>%
@@ -454,4 +462,12 @@ color = "black", size = 1))+
   theme(text = element_text(family = "Bahnschrift"))
   
 ```
+
+We can see that most of the deaths seen is due to avalanche followed by fall,AMS(Acute mountain sickness) and other illness.It cannot be ignored that unexplained disappearance is among the top reasons of deaths of expeditioners. 
+
+
+After analyzing this amazing dataset,I came to one conclusion that I dont think I will ever go for climbing the Himalaya.Seeing the causes of deaths itself scares me so I don't think mountaineering is my thing.Jokes apart,through the analysis we came to know that himalayan expeditions has seen a huge increase over the years and that even know women had a slow start,their pace is picking up as the number of women expeditioners go up. We also saw that most of the expeditioners are around or above 30 years old and also that Edmund Hillary was on point when he said most of the successful mountaineers are between the age 28 to over 40. Another point that we saw is that around 30 % of deaths is of the hired guides from Sherpa community alone and that avalanche,fall,AMS and other illness are among the top causes of death.
+
+This amazing dataset has a lot more potential for exploration,I feel like I have just barely touched the surface and most importantly, thank you for taking the time to read this. 
+
 
