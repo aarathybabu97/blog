@@ -2,15 +2,15 @@
 title: Himalayan Expeditions
 author: Aarathy Babu
 date: '2020-10-02'
-slug: test
+slug: himalayan-expeditions
 categories: []
 tags: []
 subtitle: ''
 summary: ''
 authors: []
-lastmod: '2020-09-17T18:53:09+10:00'
-featured: yes
-image: 
+lastmod: '2020-10-02T22:08:34+10:00'
+featured: no
+image:
   caption: ''
   focal_point: ''
   preview_only: no
@@ -22,12 +22,12 @@ projects: []
 
 <p>The Himalayas, however intimidating it may seem ,has always had visitors.It has always been an abode for adventure spirits and thrill seekers.In 1923,when asked why he wanted to scale the Mount Everest,the highest peak not only among the Himalayan ranges but also the highest peak in the world, George Mallory, the mountaineer who went on to participate in the first attempt to climb the same replied, “Because it is there”.These three words became one of the three famous words in mountaineering and continues to inspire mountaineers all around the world. This blog post aims to explore the data I came across in the dataset of weekly <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md">Tidy Tuesday</a> data project. The dataset is originally sourced from <a href="https://www.himalayandatabase.com/">The Himalayan Database</a> based on the expedition archives by journalist Elizabeth Hawley. The Tidy Tuesday datasets used in the analysis contains data on the peaks of the Himalaya,the expeditions led to those peaks as well as the members who participated in those expeditions.</p>
 <div class="figure">
-<img src="/post/test_files/traffic.jpg" alt="" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/traffic.jpg" alt="" />
 <p class="caption">A long line of climbers waiting to summit Mount Everest on May 22.Source : The New York Times. Credit…<span class="citation">@nimsdai/Project</span> Possible, via Agence France-Presse — Getty Images</p>
 </div>
 <p>Before the analysis,I wanted an at-a-glance image of the data in the datasets therefore I used the <em>visdat</em> package to see all the variables,it’s data types,the number of observations and also the missing values. Let us look at each dataset, starting with the dataset on the peaks as shown below in figure <a href="#fig:visdatpeaks">1</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:visdatpeaks"></span>
-<img src="/post/test_files/figure-html/visdatpeaks-1.png" alt="Data on Peaks" width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/visdatpeaks-1.png" alt="Data on Peaks" width="672" />
 <p class="caption">
 Figure 1: Data on Peaks
 </p>
@@ -198,14 +198,14 @@ RAMT30101
 </table>
 Moving on to the expeditions dataset shown in figure <a href="#fig:visdatexpe">2</a>,I did a little bit of cleaning on the variable <em>termination_reason</em> to remove the brackets as I did not want to classify reasons for termination of expedition any further.
 <div class="figure" style="text-align: center"><span id="fig:visdatexpe"></span>
-<img src="/post/test_files/figure-html/visdatexpe-1.png" alt="Data on Expeditions" width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/visdatexpe-1.png" alt="Data on Expeditions" width="672" />
 <p class="caption">
 Figure 2: Data on Expeditions
 </p>
 </div>
 <p>Similarly the glimpse of data on the members participated is as shown in figure <a href="#fig:visdatmem">3</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:visdatmem"></span>
-<img src="/post/test_files/figure-html/visdatmem-1.png" alt="Data on Expedition Members" width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/visdatmem-1.png" alt="Data on Expedition Members" width="672" />
 <p class="caption">
 Figure 3: Data on Expedition Members
 </p>
@@ -214,7 +214,7 @@ Figure 3: Data on Expedition Members
 <h2>Himalayan Expeditions over the years</h2>
 <p>Now that we got a glimpse of the datasets used,let us look into how expeditions to the Himalayan ranges fared over the years in figure <a href="#fig:gif">4</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:gif"></span>
-<img src="/post/test_files/figure-html/gif-1.gif" alt="The figure shows himalayan Expeditions over the years.It can be seen that there is fall in number of expeditions after 2010."  />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/gif-1.gif" alt="The figure shows himalayan Expeditions over the years.It can be seen that there is fall in number of expeditions after 2010."  />
 <p class="caption">
 Figure 4: The figure shows himalayan Expeditions over the years.It can be seen that there is fall in number of expeditions after 2010.
 </p>
@@ -225,7 +225,7 @@ Figure 4: The figure shows himalayan Expeditions over the years.It can be seen t
 <h2>How high are the mountains of the Himalaya ?</h2>
 <p>Let’s now see how high are the peaks of the mighty Himalayas are using the dataset on peaks.The mountains in Himalayan ranges has an average height of 6656.64 metres.To dig deeper into the heights of these peaks that have been climbed and yet to be climbed, I plotted figure <a href="#fig:height">5</a> below.</p>
 <div class="figure" style="text-align: center"><span id="fig:height"></span>
-<img src="/post/test_files/figure-html/height-1.png" alt="The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high." width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/height-1.png" alt="The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high." width="672" />
 <p class="caption">
 Figure 5: The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high.
 </p>
@@ -236,7 +236,7 @@ Figure 5: The histogram shows the distribution of heights of the peaks in Himala
 <h2>What are the main reasons for termination of expeditions?</h2>
 <p>The expeditions to Himalayan ranges are filled with adventure,hope,thrill and also a fair share of danger.Let’s look into what the main reasons for the termination of expeditions using the dataset on expeditions, in figure <a href="#reason"><strong>??</strong></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:reason"></span>
-<img src="/post/test_files/figure-html/reason-1.png" alt="The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful." width="864" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/reason-1.png" alt="The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful." width="864" />
 <p class="caption">
 Figure 6: The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful.
 </p>
@@ -247,7 +247,7 @@ Figure 6: The figure shows the reasons of termination of expeditions to Himalaya
 <h2>What about women mountaineers?</h2>
 <p>While exploring the dataset on the expedition members, I wanted to see how many of them were women and it was found that there is an astonshing difference between the number of men and women participating in the expedition. Only 9.21 % of the total expeditioners in record were women where as the rest 90.79 % were men. Although it has been a slow journey for the women,we can see in figure <a href="#fig:women">7</a> that the number of women joining expeditions is increasing.</p>
 <div class="figure" style="text-align: center"><span id="fig:women"></span>
-<img src="/post/test_files/figure-html/women-1.png" alt="The figure shows the gender distribution of the expeditioners over the years.The number of women joining expeditions has been on the rise." width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/women-1.png" alt="The figure shows the gender distribution of the expeditioners over the years.The number of women joining expeditions has been on the rise." width="672" />
 <p class="caption">
 Figure 7: The figure shows the gender distribution of the expeditioners over the years.The number of women joining expeditions has been on the rise.
 </p>
@@ -257,7 +257,7 @@ Figure 7: The figure shows the gender distribution of the expeditioners over the
 <h2>How old are these expeditioners?</h2>
 <p>When I was doing my bachelor’s,I happened to hear about a <a href="https://www.avenuemail.in/world/5-year-old-indian-boy-harshit-saumitra-creates-world-record/62677/">5-year-old</a> being the youngest ever to have reached the Mount Everest base camp and it completely blew my mind then and even now. Therefore,I really wanted to explore the data to see the age group the expeditioners fall into when they had climbed the Himalayan peaks and inorder to do so, the dataset on members were considered.</p>
 <div class="figure" style="text-align: center"><span id="fig:age"></span>
-<img src="/post/test_files/figure-html/age-1.png" alt="The figure shows the age distribution of the expeditioners and it can be observed that majority of them are around 30 or above 30 years old." width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/age-1.png" alt="The figure shows the age distribution of the expeditioners and it can be observed that majority of them are around 30 or above 30 years old." width="672" />
 <p class="caption">
 Figure 8: The figure shows the age distribution of the expeditioners and it can be observed that majority of them are around 30 or above 30 years old.
 </p>
@@ -265,12 +265,12 @@ Figure 8: The figure shows the age distribution of the expeditioners and it can 
 <p>The figure above <a href="#fig:age">8</a> shows that majority of the expeditioners are above 30 years of age and it can also be seen that there is a presence of really young population of below 20 years of age.</p>
 <p>While I was extensively googling for this analysis, I came across a quite interesting quote by none other than Edmund Hillary,one of the two-man team who first set foot on the peak of Mt.Everest. He once said,“I think Himalayan climbers tend to mature fairly late. I think most of the successful Himalayan climbers have ranged from 28 to just over 40, really.”. This really intrigued and prompted me to check if the data says the same.</p>
 <div class="figure">
-<img src="/post/test_files/hillary.jpg" style="width:50.0%;height:50.0%" alt="" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/hillary.jpg" style="width:50.0%;height:50.0%" alt="" />
 <p class="caption">Image Source:quotefancy.com</p>
 </div>
 <p>To check if the data holds true by what Edmund Hillary said,I took the data on the members who were part of successful expeditions and plotted their age distribution as seen below in figure <a href="#fig:edmund">9</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:edmund"></span>
-<img src="/post/test_files/figure-html/edmund-1.png" alt="The figure shows the age distribuition of successfull expeditioners.It can be observed that majority of the expeditioners are of the age group early 20s - late 40s." width="672" />
+<img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/edmund-1.png" alt="The figure shows the age distribuition of successfull expeditioners.It can be observed that majority of the expeditioners are of the age group early 20s - late 40s." width="672" />
 <p class="caption">
 Figure 9: The figure shows the age distribuition of successfull expeditioners.It can be observed that majority of the expeditioners are of the age group early 20s - late 40s.
 </p>
@@ -417,7 +417,7 @@ Sherpa
 <div id="what-are-the-causes-of-deaths-during-expeditions" class="section level2">
 <h2>What are the causes of deaths during expeditions?</h2>
 <p>It is of no doubt that mountaineering is thrilling as well as dangerous. The figure <a href="#fig:cause"><strong>??</strong></a> below, shows the causes of deaths of the expeditioners.</p>
-<p><img src="/post/test_files/figure-html/cause-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-10-02-himalayan-expeditions.en_files/figure-html/cause-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We can see that most of the deaths seen is due to avalanche followed by fall,AMS(Acute mountain sickness) and other illness.It cannot be ignored that unexplained disappearance is among the top reasons of deaths of expeditioners.</p>
 <p>After analyzing this amazing dataset,I came to one conclusion that I dont think I will ever go for climbing the Himalaya.Seeing the causes of deaths itself scares me so I don’t think mountaineering is my thing.Jokes apart,through the analysis we came to know that himalayan expeditions has seen a huge increase over the years and that even know women had a slow start,their pace is picking up as the number of women expeditioners go up. We also saw that most of the expeditioners are around or above 30 years old and also that Edmund Hillary was on point when he said most of the successful mountaineers are between the age 28 to over 40. Another point that we saw is that around 30 % of deaths is of the hired guides from Sherpa community alone and that avalanche,fall,AMS and other illness are among the top causes of death.</p>
 <p>This amazing dataset has a lot more potential for exploration,I feel like I have just barely touched the surface and most importantly, thank you for taking the time to read this.</p>

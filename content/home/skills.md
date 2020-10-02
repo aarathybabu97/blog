@@ -31,6 +31,14 @@ subtitle = ""
   icon_pack = "fab"
   name = "Git"
   description = "GitHub + GitKraken"
+  
+  
+  
+[[feature]]
+  icon = "ellipsis-h"
+  icon_pack = "fas"
+  name = "Morse Code"
+  description = "–··· · ––· ·· –· –· · ·–·"
 
 # Uncomment to use emoji icons.
 # [[feature]]

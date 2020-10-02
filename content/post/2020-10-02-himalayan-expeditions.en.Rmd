@@ -2,15 +2,15 @@
 title: Himalayan Expeditions
 author: Aarathy Babu
 date: '2020-10-02'
-slug: test
+slug: himalayan-expeditions
 categories: []
 tags: []
 subtitle: ''
 summary: ''
 authors: []
-lastmod: '2020-09-17T18:53:09+10:00'
-featured: yes
-image: 
+lastmod: '2020-10-02T22:08:34+10:00'
+featured: no
+image:
   caption: ''
   focal_point: ''
   preview_only: no
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = FALSE,message=FALSE,warning=FALSE,fig.align = 'cent
 ```
 
 
-![A long line of climbers waiting to summit Mount Everest on May 22.Source : The New York Times. Credit...@nimsdai/Project Possible, via Agence France-Presse — Getty Images](/post/test_files/traffic.jpg)
+![A long line of climbers waiting to summit Mount Everest on May 22.Source : The New York Times. Credit...@nimsdai/Project Possible, via Agence France-Presse — Getty Images](/post/2020-10-02-himalayan-expeditions.en_files/traffic.jpg)
 
 
 ```{r library}
@@ -321,7 +321,7 @@ The figure above \@ref(fig:age) shows that majority of the expeditioners are abo
 
 While I was extensively googling for this analysis, I came across a quite interesting quote by none other than Edmund Hillary,one of the two-man team who first set foot on the peak of Mt.Everest. He once said,"I think Himalayan climbers tend to mature fairly late. I think most of the successful Himalayan climbers have ranged from 28 to just over 40, really.". This really intrigued and prompted me to check if the data says the same. 
 
-![Image Source:quotefancy.com](/post/test_files/hillary.jpg){width=50% height=50%}
+![Image Source:quotefancy.com](/post/2020-10-02-himalayan-expeditions.en_files/hillary.jpg){width=50% height=50%}
 
 
 To check if the data holds true by what Edmund Hillary said,I took the data on the members who were part of successful expeditions and plotted their age distribution as seen below in figure \@ref(fig:edmund). 
