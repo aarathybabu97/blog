@@ -17,7 +17,7 @@ image:
 projects: []
 ---
 
-The Himalayas, however intimidating it may seem ,has always had visitors.It has always been an abode for adventure spirits and thrill seekers.In 1923,when asked why he wanted to scale the Mount Everest,the highest peak not only among the Himalayan ranges but also the highest peak in the world, George Mallory, the mountaineer who went on to participate in the first attempt to climb the same replied, "Because it is there".These three words became one of the three famous words in mountaineering and continues to inspire mountaineers all around the world. This blog post aims to explore the data I came across in the dataset of weekly [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md) data project. The dataset is originally sourced from [The Himalayan Database](https://www.himalayandatabase.com/) based on the expedition archives by journalist Elizabeth Hawley. The Tidy Tuesday datasets used in the analysis contains data on the peaks of the Himalaya,the expeditions led to those peaks as well as the members who participated in those expeditions. 
+The Himalayas, however intimidating it may seem ,has always had visitors.It has always been an abode for adventure spirits and thrill seekers.In 1923,when asked why he wanted to scale the Mount Everest,the highest peak not only among the Himalayan ranges but also the highest peak in the world, George Mallory, the mountaineer who went on to participate in the first attempt to climb the same replied, "Because it is there".These three words became one of the famous quotes in mountaineering and continues to inspire mountaineers all around the world. This blog post aims to explore the data I came across in the weekly [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md) data project. The dataset is originally sourced from [The Himalayan Database](https://www.himalayandatabase.com/) based on the expedition archives by journalist Elizabeth Hawley. The Tidy Tuesday datasets used in the analysis contains data on the peaks of the Himalaya,the expeditions led to those peaks as well as the members who participated in those expeditions. 
 
 
 ```{r setup, include=FALSE}
@@ -59,7 +59,7 @@ Before the analysis,I wanted an at-a-glance image of the data in the datasets th
 ```
 
 Digging deeper to see the observations, it was found that the year of first ascent for one of the peaks, 	
-Sharphu II is given as 201 which is unlikely,therefore by doing a little bit of googling it was found that the year of first ascent is 2018 and the observation was correctly accordingly for the analysis. 
+Sharphu II is given as 201 which is unlikely,therefore by doing a little bit of googling it was found that the year of first ascent is 2018 and the observation was corrected accordingly for the analysis. 
 
 ```{r tablepeak,fig.cap="Year of first ascent of an observation is given as 201 which is unlikely."}
 peaks %>%
@@ -187,7 +187,7 @@ In the above plot that,we can see that there is a decline in the number of exped
 
 ## How high are the mountains of the Himalaya ?
 
-Let's now see how high are the peaks of the mighty Himalayas are using the dataset on peaks.The mountains in Himalayan ranges has an average height of `r round(mean(peakst$height_metres),2)` metres.To dig deeper into the heights of these peaks that have been climbed and yet to be climbed, I plotted figure \@ref(fig:height) below.
+Let's now see how high are the peaks of the mighty Himalayas using the dataset on peaks.The mountains in Himalayan ranges has an average height of `r round(mean(peakst$height_metres),2)` metres.To dig deeper into the heights of these peaks that have been climbed and yet to be climbed, I plotted figure \@ref(fig:height) below.
 
 ```{r height,fig.cap="The histogram shows the distribution of heights of the peaks in Himalaya that have been climbed and yet to be climbed.It is seen that majority of the climbed peaks are between 6000-8000m high where as the unclimbed are around 6000-7000m high."}
 cols <- c("#0f4c5c","#e36414")
@@ -215,9 +215,9 @@ I always had the idea that higher the peak more difficult it is to be climbed th
 
 ## What are the main reasons for termination of expeditions? 
 
-The expeditions to Himalayan ranges are filled with adventure,hope,thrill and also a fair share of danger.Let's look into what the main reasons for the termination of expeditions using the dataset on expeditions, in figure \@ref(reason).
+The expeditions to Himalayan ranges are filled with adventure,hope,thrill and also a fair share of danger.Let's look into what the main reasons for the termination of expeditions using the dataset on expeditions, in figure \@ref(fig:reason).
 
-```{r reason,fig.cap="The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful." ,fig.width=9,fig.height=5}
+```{r reason, fig.cap="The figure shows the reasons of termination of expeditions to Himalaya.It can be observed that majority of the expeditions were successful." ,fig.width=9,fig.height=5}
 cols2 <- c("#f94144", "#386641", "#708d81","#f9844a","#f9c74f","#90be6d","#43aa8b","#4d908e","#577590","#277da1","#0f4c5c","#e36414","#fb8b24","#9a031e","#5f0f40")
 test %>%
 group_by(termination_reason)%>%
@@ -359,9 +359,9 @@ It is very interesting to see that the data does support what Edmund Hillary sai
 
 The Sherpa are an ethnic group who live in the high mountains of the Himalayas in Nepal. A majority of them work as guides who helps mountaineers to climb the Himalaya.
 
-[Fun fact](https://www.thoughtco.com/sherpa-people-definition-1434515#:~:text=The%20Sherpa%20are%20an%20ethnic,working%2C%20peaceful%2C%20and%20brave.) : The Sherpa community weren't always involved in mountaineering.The were hired as porters by the British, who controlled the Indian sub-continent and planned mountain climbing expeditions.Since then,due to their hard work and agility they have been climbing the mountain range that has few of the highest peaks on Earth.
+[Fun fact](https://www.thoughtco.com/sherpa-people-definition-1434515#:~:text=The%20Sherpa%20are%20an%20ethnic,working%2C%20peaceful%2C%20and%20brave.) : The Sherpa community weren't always involved in mountaineering.They were hired as porters by the British, who controlled the Indian sub-continent and planned mountain climbing expeditions.Since then,due to their hard work and agility they have been climbing the mountain range that has few of the highest peaks on Earth.
 
-As we analyze the data,it is very important to consider the role of the Sherpa guides as they are doing a job with risks and no glory. Let us first look at gender and age distribution among the hired sherpa guides below in \@ref(tab:female).In order to find the hired members who are from Sherpa,I took the variable *hired* into consideration and also filtered the citizenship of the individual to India,Nepal and Nepal/India. 
+As we analyze the data,it is very important to consider the role of the Sherpa guides as they are doing a job with high risks and no glory. Let us first look at gender and age distribution among the hired sherpa guides below in table \@ref(tab:female).In order to find the hired members who are from Sherpa,I took the variable *hired* into consideration and also filtered the citizenship of the individual to India,Nepal and Nepal/India. 
 
 ```{r female}
 sherpa<- members %>%
@@ -401,12 +401,12 @@ sherpa_gender %>%
          Male=M,
          Age=age_group) %>%
   kable(caption ="The table depicts the Gender and Age distribution of hired Sherpa guides.") %>%
-  kable_styling(bootstrap_options = c("striped", "hover",full_width = F, "responsive",position = "float_right"))
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive",position = "float_right"))
 ```
 
 From the table above,we can see that not many women in Sherpa community work as hired guides and that among women majority of them are of the age group 20-30 where as majority of them fall between 20-40 years of age.
 
-Let's now move on to the more pressing topic that is,given the dangerous nature of the job,it is seen in \@ref(tab:extab) that around 30% of deaths during the expeditions are of the Sherpa community alone which becomes even more painful when you come to know that according to [npr.org](https://www.npr.org/sections/parallels/2018/04/14/599417489/one-third-of-everest-deaths-are-sherpa-climbers),there have been instances where the Sherpas didn't even receive the certificates their foreign counterparts get to prove they have reached the summit. 
+Let's now move on to the more pressing topic that is,given the dangerous nature of the job,it is seen in table \@ref(tab:extab) that around 30% of deaths during the expeditions are of the Sherpa community alone which becomes even more painful when you come to know that according to [npr.org](https://www.npr.org/sections/parallels/2018/04/14/599417489/one-third-of-everest-deaths-are-sherpa-climbers),there have been instances where the Sherpas didn't even receive the certificates their foreign counterparts get to prove they have reached the summit. 
 
 I would like to share here,the [National Geographic's 5 Ways to help the Sherpas of Everest](https://www.nationalgeographic.com/news/2014/4/140424-sherpas-avalanche-help-donations/) that has been shared in the Tidy Tuesday GitHub repo.
 
@@ -442,7 +442,7 @@ deaths %>%
 
 It is of no doubt that mountaineering is thrilling as well as dangerous. The figure \@ref(fig:cause) below, shows the causes of deaths of the expeditioners.
 
-```{r cause}
+```{r cause, fig.cap="The figure shows major causes of deaths during expeditions"}
 members %>%
   filter(died=="TRUE") %>%
 
@@ -466,7 +466,7 @@ color = "black", size = 1))+
 We can see that most of the deaths seen is due to avalanche followed by fall,AMS(Acute mountain sickness) and other illness.It cannot be ignored that unexplained disappearance is among the top reasons of deaths of expeditioners. 
 
 
-After analyzing this amazing dataset,I came to one conclusion that I dont think I will ever go for climbing the Himalaya.Seeing the causes of deaths itself scares me so I don't think mountaineering is my thing.Jokes apart,through the analysis we came to know that himalayan expeditions has seen a huge increase over the years and that even know women had a slow start,their pace is picking up as the number of women expeditioners go up. We also saw that most of the expeditioners are around or above 30 years old and also that Edmund Hillary was on point when he said most of the successful mountaineers are between the age 28 to over 40. Another point that we saw is that around 30 % of deaths is of the hired guides from Sherpa community alone and that avalanche,fall,AMS and other illness are among the top causes of death.
+After analyzing this amazing dataset,I came to one conclusion that I dont think I will ever go for climbing the Himalaya.Seeing the causes of deaths itself scares me so I don't think mountaineering is my thing.Jokes apart,through the analysis we came to know that himalayan expeditions has seen a huge increase over the years and that even though women had a slow start,their pace is picking up as the number of women expeditioners go up each year. We also saw that most of the expeditioners are around or above 30 years old and also that Edmund Hillary was on point when he said most of the successful mountaineers are between the age 28 to over 40. Another point that we noted is that around 30 % of deaths is of the hired guides from Sherpa community alone and that avalanche,fall,AMS and other illness are among the top causes of death.
 
 This amazing dataset has a lot more potential for exploration,I feel like I have just barely touched the surface and most importantly, thank you for taking the time to read this. 
 
