@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: Post-Grad Student Woman student | Business Analytics | Monash University | Here to live my life so well that death would tremble to take me.
+bio: Post-Grad Student| Business Analytics | Monash University | Here to live my life so well that death would tremble to take me.
 education:
   courses:
   - course: Masters of Business Analytics
