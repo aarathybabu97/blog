@@ -71,7 +71,7 @@ sector %>%
 
 ```
 
-In order to make analysis easier,the sector wise data is pivot longer.Similar process goes to the dataset on electricity generated in Australia using renewable energy shown below. The data is made to be longer inorder to make analysis easier.The values depicting year and electricity generated was removed of the space present in it and was made to be numeric instead of the character data type. 
+In order to make analysis easier,the sector wise data is pivot longer.Similar process goes to the dataset on electricity generated in Australia using renewable energy shown below. The data is made to be longer inorder to make analysis easier.The values depicting year and electricity generated was removed of the space present in it. 
 
 
 ```{r table3}
