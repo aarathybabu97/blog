@@ -32,13 +32,16 @@ subtitle = ""
   name = "Git"
   description = "GitHub + GitKraken"
   
-  
-  
-[[feature]]
-  icon = "ellipsis-h"
+ [[feature]]
+  icon = "chart-line"
   icon_pack = "fas"
-  name = "Morse Code"
-  description = "–··· · ––· ·· –· –· · ·–·"
+  name = "Machine Learning"
+  
+ [[feature]]
+  icon = "chart-line"
+  icon_pack = "fas"
+  name = "Time Series Forecasting"
+
 
 # Uncomment to use emoji icons.
 # [[feature]]
