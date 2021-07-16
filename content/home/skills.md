@@ -41,6 +41,12 @@ subtitle = ""
   icon = "chart-line"
   icon_pack = "fas"
   name = "Time Series Forecasting"
+  
+  [[feature]]
+  icon = "database"
+  icon_pack = "fas"
+  name = "SQL"
+  description = "Databases + Data Warehousing + Business Intelligence"
 
 
 # Uncomment to use emoji icons.
